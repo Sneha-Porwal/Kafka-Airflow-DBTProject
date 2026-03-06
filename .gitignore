@@ -1,0 +1,55 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment files and local secrets
+.env
+.env.*
+*.local
+
+# Logs
+*.log
+logs/
+
+# dbt artifacts
+real-time-data-platform/dbt/target/
+real-time-data-platform/dbt/logs/
+real-time-data-platform/dbt/dbt_packages/
+real-time-data-platform/dbt/.user.yml
+
+# Keep local dbt credentials out of git
+real-time-data-platform/dbt/profiles.yml
+
+# Airflow local/runtime artifacts
+real-time-data-platform/airflow/logs/
+real-time-data-platform/airflow/.airflowignore
+real-time-data-platform/airflow/airflow.db
+real-time-data-platform/airflow/webserver_config.py
+
+# Docker/runtime leftovers
+*.pid
+*.seed
+*.out
+*.err
+
