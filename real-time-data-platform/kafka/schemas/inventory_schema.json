@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["event_id", "event_timestamp", "product_id", "sku", "warehouse_id", "stock_level", "reorder_level"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_timestamp": {"type": "string", "format": "date-time"},
+    "schema_version": {"type": "string"},
+    "product_id": {"type": "string"},
+    "sku": {"type": "string"},
+    "warehouse_id": {"type": "string"},
+    "stock_level": {"type": "integer", "minimum": 0},
+    "reorder_level": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": true
+}

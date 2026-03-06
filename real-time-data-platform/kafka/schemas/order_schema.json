@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["event_id", "event_timestamp", "order_id", "user_id", "product_id", "quantity", "unit_price", "total_amount", "currency", "order_status"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_timestamp": {"type": "string", "format": "date-time"},
+    "schema_version": {"type": "string"},
+    "order_id": {"type": "string"},
+    "user_id": {"type": "string"},
+    "product_id": {"type": "string"},
+    "quantity": {"type": "integer", "minimum": 1},
+    "unit_price": {"type": "number", "minimum": 0},
+    "total_amount": {"type": "number", "minimum": 0},
+    "currency": {"type": "string", "enum": ["USD", "EUR", "INR"]},
+    "order_status": {"type": "string", "enum": ["PLACED", "CONFIRMED", "CANCELLED", "FULFILLED"]}
+  },
+  "additionalProperties": true
+}

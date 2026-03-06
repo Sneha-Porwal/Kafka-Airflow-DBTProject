@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["event_id", "event_timestamp", "product_id", "sku", "product_name", "unit_price", "is_active"],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_timestamp": {"type": "string", "format": "date-time"},
+    "schema_version": {"type": "string"},
+    "product_id": {"type": "string"},
+    "sku": {"type": "string"},
+    "product_name": {"type": "string"},
+    "category": {"type": "string"},
+    "unit_price": {"type": "number", "minimum": 0},
+    "is_active": {"type": "boolean"}
+  },
+  "additionalProperties": true
+}

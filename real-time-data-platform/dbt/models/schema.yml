@@ -1,0 +1,98 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: Ecommerce
+    schema: bronze
+    freshness:
+      warn_after: {count: 10, period: minute}
+      error_after: {count: 30, period: minute}
+    loaded_at_field: ingestion_ts
+    tables:
+      - name: events_raw
+
+models:
+  - name: stg_orders_bronze
+    columns:
+      - name: event_id
+        tests: [not_null, unique]
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: ['PLACED', 'CONFIRMED', 'CANCELLED', 'FULFILLED']
+
+  - name: stg_payments_bronze
+    columns:
+      - name: event_id
+        tests: [not_null, unique]
+      - name: payment_status
+        tests:
+          - accepted_values:
+              values: ['SUCCESS', 'FAILED', 'PENDING', 'REFUNDED']
+
+  - name: stg_users_bronze
+    columns:
+      - name: event_id
+        tests: [not_null, unique]
+      - name: email
+        tests: [not_null]
+
+  - name: stg_products_bronze
+    columns:
+      - name: event_id
+        tests: [not_null, unique]
+
+  - name: stg_shipping_bronze
+    columns:
+      - name: event_id
+        tests: [not_null, unique]
+
+  - name: dim_users
+    columns:
+      - name: user_id
+        tests: [not_null, unique]
+
+  - name: dim_products
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+
+  - name: dim_date
+    columns:
+      - name: date_day
+        tests: [not_null, unique]
+
+  - name: fact_orders
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: user_id
+        tests:
+          - relationships:
+              to: ref('dim_users')
+              field: user_id
+      - name: product_id
+        tests:
+          - relationships:
+              to: ref('dim_products')
+              field: product_id
+
+  - name: fact_payments
+    columns:
+      - name: payment_id
+        tests: [not_null, unique]
+      - name: order_id
+        tests:
+          - relationships:
+              to: ref('fact_orders')
+              field: order_id
+
+  - name: fact_shipping
+    columns:
+      - name: shipment_id
+        tests: [not_null, unique]
+      - name: order_id
+        tests:
+          - relationships:
+              to: ref('fact_orders')
+              field: order_id
